@@ -1,0 +1,29 @@
+# Use this as docker-compose.override.yml if you use linux
+version: '3.7'
+
+services:
+    php:
+        volumes:
+            - ~/.composer/cache:/.composer/cache
+            - ~/.npm:/.npm
+            - .:/app
+            - ./devops/containers/php/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+        tmpfs:
+            - /tmp:mode=1777
+        user: "1000:1000"
+        extra_hosts:
+            -  host.docker.internal:172.18.0.1
+
+    nginx:
+        ports:
+            - "80:80"
+            #- "443:443"
+        volumes:
+            - ./public:/app/public:ro
+            #- ./devops/containers/nginx/shopware-ssl.conf:/etc/nginx/conf.d/default.conf:ro
+
+    mariadb:
+        ports:
+            - "3306:3306"
+        volumes:
+            - ./devops/containers/mariadb/shopware-mariadb.cnf:/etc/mysql/mariadb.conf.d/shopware-mariadb.cnf

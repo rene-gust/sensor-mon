@@ -1,0 +1,9 @@
+[Unit]
+Description=Shopware Scheduled Task
+After=mysql.service
+
+[Service]
+Type=simple
+User=www-data
+Restart=always
+ExecStart=/usr/local/bin/php /app/bin/console scheduled-task:run --time-limit=60 --memory-limit=1G

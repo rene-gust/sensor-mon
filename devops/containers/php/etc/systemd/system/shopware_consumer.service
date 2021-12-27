@@ -1,0 +1,13 @@
+[Unit]
+Description=Shopware Message Queue Consumer, instance %i
+PartOf=shopware_consumer.target
+
+[Service]
+Type=simple
+User=www-data
+Restart=always
+RestartSec=always
+ExecStart=/usr/local/bin/php /app/bin/console messenger:consume --time-limit=60 --memory-limit=1G
+
+[Install]
+WantedBy=shopware_consumer.target

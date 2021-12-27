@@ -1,0 +1,7 @@
+[Install]
+WantedBy=multi-user.target
+
+[Unit]
+Description=shopware_consumer service
+After=mysql.service
+
